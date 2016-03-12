@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>OpenHealth</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/c3.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/navbar.css" rel="stylesheet">
+
+    <script src="https://mathbiol.github.io/openHealth/openHealth.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Stony Brook BMI</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ><a href="index.html">Home</a></li>
+              <li class="active"><a href="Analysis.html">Analysis</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+        <h2>Price Analysis - 2004</h2>
+        <p>NAICS 52 : <b>Finance and Industry</b> , stock prices changes of major 10 equities [Market Capitalization]. </p>
+  
+      <div class="row">
+        <div style="border-style: groove;">
+          <h4><center>aa</center></h3>
+          <div id="g52038"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div style="border-style: groove;">
+          <h4><center>aa</center></h3>
+          <div></div>
+        </div>
+      </div>
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>  
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/c3.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/localforage.min.js"></script>
+    <script type="text/javascript">
+
+
+         var data =[];
+         var  er_visits = [];
+         var  county = [];
+         
+
+        d3.json('http://health.data.ny.gov/resource/2yck-xisk.json', function(json) {
+            
+            er_visits.push('data1');
+            county.push('county');
+            var cnt=0;
+            //parseInt(json[i].er_visits)
+            for (var i = 0; i < json.length; i++) {
+                er_visits.push(json[i].er_visits);
+                county.push(json[i].county);
+
+            };
+           
+           drawgraph('#g52038',er_visits);
+        });
+        
+       // openHealth.soda("NY Medicare Inpatient") ;
+        
+    </script>
+   
+</html>
