@@ -66,9 +66,11 @@
       </div>
       <br>
       <div class="row">
-        <div class="span6" style="border-style: groove;">
-          <h4><center> year </center></h3>
+        <div class="col-md-6" style="border-style: groove;">
+          <h4><center> Major Diagnostic Categories </center></h3>
           <div id="yr"></div>
+        </div>
+       
         </div>
       </div>
       
@@ -96,11 +98,16 @@
          var data =[];
          var  er_visits = [];
          var  county = [];
+         var lookup = {};
+        
+         var result_yr = [];
+
+
          
 
         d3.json('http://health.data.ny.gov/resource/2yck-xisk.json', function(json) {
             
-            er_visits.push('data1');
+            er_visits.push('er_visits');
             county.push('county');
             var cnt=0;
             //parseInt(json[i].er_visits)
@@ -109,8 +116,33 @@
                 county.push(json[i].county);
 
             };
-           
+
+            var items = json;
+            for (var item, i = 0; item = items[i++];) {
+              var year = item.major_diagnostic_category;
+
+              if (!(year in lookup)) {
+                lookup[year] = 1;
+                result_yr.push(year);
+              }
+            }
+            //console.log(result_yr);
             drawgraph_line('#g52038',er_visits);
+
+
+            var maj_cat = d3.nest()
+              .key(function(d) { return d.major_diagnostic_category; })
+              .entries(json);
+            console.log(maj_cat);
+
+            var yr_pie_data = [],yr_pie_data_cnt=[];
+             for (var i = 0; i < maj_cat.length; i++) {
+               yr_pie_data.push(maj_cat[i].key);
+               yr_pie_data_cnt.push(maj_cat[i].values.length);
+             };
+             //console.log(yr_pie_data_cnt);
+
+             drawgraph_pie('#yr',yr_pie_data,yr_pie_data_cnt);
         });
         
        // openHealth.soda("NY Medicare Inpatient") ;
